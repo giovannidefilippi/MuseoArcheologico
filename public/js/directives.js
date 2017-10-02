@@ -9,9 +9,7 @@ return {
    restrict: 'AE',
 		
    link: function(scope,elem,attrs){
-			
-                          elem.html(version);
-		
+            elem.html(version);
       }
 	
      }	
