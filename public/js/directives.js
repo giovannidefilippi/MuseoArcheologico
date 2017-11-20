@@ -69,8 +69,8 @@ return {
                     qr,
                     $img,
                     color = {
-                        foreground: '#372af5',
-                        background: '#d8def5'
+                        foreground: '#020107',
+                        background: '#ffffff'
                     },
                     setColor = function(value) {
                         color.foreground = value || color.foreground;

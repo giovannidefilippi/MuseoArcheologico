@@ -15,10 +15,10 @@ var db = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
     password: 'root',
-    database: 'DBMuseo'   //  ProvaAudioVideoDB
+    database: 'DBMuseo'
 });
 var api = mysqltorest(app,db);
 
 app.listen(port, function () {
-    console.log('Express server inizializzato sulla porta ' + port+'. API REST esposte dal Db');
+    console.log('Express server inizializzato sulla porta ' + port+'. API REST esposte dal Db utilizzate anche dall app mobile');
 });

@@ -87,7 +87,9 @@ angular.module('Museo.controllers',[])
             for(var i=0; i<OdaTable.length; i++){
                 if($scope.opere[i].id == $stateParams.id){
                     $scope.opera = $scope.opere[i];
-                    $scope.foo=$scope.opera.id;   // valore che va nel qr-code
+                    $scope.foo=$scope.opera.id;// valore che va nel qr-code
+                    $scope.titolo=$scope.opera.Titolo
+
                 }
             }
         });
