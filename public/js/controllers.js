@@ -1,30 +1,35 @@
 'use strict';
 angular.module('Museo.controllers',[])
-.controller('LoginController',['$scope','authService','$state',function($scope,authService,$state){
+.controller('LoginController',['$scope','authService','$state','$rootScope',function($scope,authService,$state,$rootScope){
 	$scope.buttonText="Login";
     $scope.invalidLogin=false;
 	$scope.login=function(){
 		$scope.buttonText="Logging in. . .";
 
 		authService.login($scope.credentials.username,$scope.credentials.password).then(function(data){
+
 			$state.go('home.viewAll');
 		},function(err){
 			$scope.invalidLogin=true;
 		})['finally'](function(){
-			$scope.buttonText="Login";
+		    //$rootScope.mansione=authService.user.Mansione;
+		    $scope.buttonText="Login";
 		});
 	}
 }])
-.controller('HomeController',['$scope','$cookieStore','authService','$state',function($scope,$cookieStore,authService,$state){
+.controller('HomeController',['$scope','$cookieStore','authService','$state','$rootScope',function($scope,$cookieStore,authService,$state,$rootScope){
+    $scope.mansione=$cookieStore.get('user').Mansione;
+    //console.log($cookieStore.get('user'));
     $scope.logout=function(){
         authService.user=undefined;
         $cookieStore.remove('user');
         $state.go('web.viewAll',undefined,{reload:true});
     }
+
 }])
 .controller('WebController',['$stateParams','$rootScope','$scope',function($stateParams,$rootScope,$scope) {
 }])
-.controller('AllController',['$scope','odaService','artistService','typeService',function($scope,odaService,artistService,typeService){
+.controller('AllController',['$scope','odaService','artistService','typeService','$rootScope',function($scope,odaService,artistService,typeService,$rootScope){
     var OdaTable=odaService.get(function () {
         $scope.opere=OdaTable.json;
         var ArtistaTable=artistService.get(function () {
@@ -53,6 +58,8 @@ angular.module('Museo.controllers',[])
         })
 
     });
+
+
 }])
 .controller('OperaDarteController',['$stateParams','$scope','odaService','artistService','typeService',function($stateParams,$scope,odaService,artistService,typeService){
 
@@ -152,7 +159,7 @@ angular.module('Museo.controllers',[])
         })
     });
 }])
-.controller('MuseoChangeController',['$scope','$state','popupService','museoService','cityService','API_ENDPOINT_MUSEO',function($scope,$state,popupService,museoService,cityService,API_ENDPOINT_MUSEO){
+.controller('MuseoChangeController',['$scope','$state','popupService','museoService','cityService','API_ENDPOINT_MUSEO','authService',function($scope,$state,popupService,museoService,cityService,API_ENDPOINT_MUSEO,authService){
     $scope.museo={};
     $scope.annulla=function () {
         $state.go('home.musei',undefined,{reload:true});
@@ -177,7 +184,7 @@ angular.module('Museo.controllers',[])
         });
     $scope.deleteMuseo=function(museo) {
                 $scope.popup = popupService.showPopup("Vuoi eliminare dal DB il museo selezionato ?");
-                if ($scope.popup) {
+                if ($scope.popup&& authService.user.Mansione =='Amministratore') {
                     var form = new FormData();
                     form.append("id", museo.id);
                     //console.log(museo.id);
@@ -200,6 +207,9 @@ angular.module('Museo.controllers',[])
                         $state.go('home.musei',undefined,{reload:true});
                     });
                 }
+                else{
+                    $scope.popup2=popupService.showPopup("Non hai i privilegi per eliminare una  struttura museale !!");
+                   }
             };
 
     $scope.buttonText="Salva Museo";
@@ -207,7 +217,7 @@ angular.module('Museo.controllers',[])
 
                 $scope.buttonText="Salvataggio...";
                 $scope.popup1=popupService.showPopup("Vuoi salvare il nuovo Museo nel Db ?");
-                if($scope.popup1){
+                if($scope.popup1&& authService.user.Mansione =='Amministratore'){
                     $scope.idMuseoNew=parseInt(idUltimoMuseo)+1;
 
                     var form = new FormData();
@@ -238,7 +248,8 @@ angular.module('Museo.controllers',[])
 
                 }
                 else{
-                    $scope.buttonText="Salva Museo";
+                     $scope.popup2=popupService.showPopup("Non hai i privilegi per creare una nuova struttura museale !!");
+                     $scope.buttonText="Salva Museo";
                 }
             }
 
@@ -309,7 +320,7 @@ angular.module('Museo.controllers',[])
                     });
                 }
                 else{
-                    $scope.popup2=popupService.showPopup("Non hai i privilegi per modificare gli account !!");
+                    $scope.popup2=popupService.showPopup("Non hai i privilegi per modificare il museo !!");
                     $scope.buttonText="Conferma Modifiche Museo";
                 }
             }//chiude salvaMuseo
@@ -354,6 +365,10 @@ angular.module('Museo.controllers',[])
                     $state.go('home.account',undefined,{reload:true});
                 });
             }
+            else{
+                $scope.popup2=popupService.showPopup("Non hai i privilegi per eliminare gli account !!");
+                $scope.buttonText="Salva Account";
+            }
         };
 
         $scope.saveNewAccount=function () {
@@ -395,7 +410,7 @@ angular.module('Museo.controllers',[])
 
             }
             else{
-                $scope.popup2=popupService.showPopup("Non hai i privilegi per modificare gli account !!");
+                $scope.popup2=popupService.showPopup("Non hai i privilegi per creare un nuovo account !!");
                 $scope.buttonText="Salva Account";
             }
         };

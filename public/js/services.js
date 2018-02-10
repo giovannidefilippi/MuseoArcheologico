@@ -11,12 +11,12 @@ angular.module('Museo.services',[])
     var auth={};
     auth.login=function(username,password){
         return $http.get(AUTH_ENDPOINT).then(function(response,status){
-        //return $http.post(AUTH_ENDPOINT,{Username:username,Password:password}).then(function(response,status){
-        	        	
+
         	for (var i=0;i<response.data.length;i++){
         		
         	if(response.data.json[i].Username == username && response.data.json[i].Password == password){
         		auth.user=response.data.json[i];
+
         		}
         	else{
         		$rootScope.invalidLogin=true;
@@ -79,7 +79,7 @@ angular.module('Museo.services',[])
         }
     });
 }])
- 	//.value('AUTH_ENDPOINT','http://localhost:8000/api/Login')
+
     .value('AUTH_ENDPOINT','http://localhost:8000/api/Operatore')
 	.value('API_ENDPOINT_ARTISTA','http://localhost:8000/api/Artista')
     .value('API_ENDPOINT_OPERATORE','http://localhost:8000/api/Operatore')
@@ -87,5 +87,5 @@ angular.module('Museo.services',[])
     .value('API_ENDPOINT_TIPOLOGIA','http://localhost:8000/api/Tipologia')
     .value('API_ENDPOINT_MUSEO','http://localhost:8000/api/Museo')
 	.value('API_ENDPOINT_OPERADARTE','http://localhost:8000/api/OperaDarte')
-	//.value('LOGOUT_ENDPOINT','http://localhost:8000/logout')
+
 ;

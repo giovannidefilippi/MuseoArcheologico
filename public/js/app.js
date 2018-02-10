@@ -119,7 +119,7 @@ angular.module('Museo',['ui.router','Museo.controllers','Museo.directives','Muse
                 controller:'MuseoChangeController',
                 templateUrl:'views/home/musei/museiDelete.html'
             })
-    .state('home.account',{
+        .state('home.account',{
                 url:'/accounts',
                 controller:'',     //  AccountController
                 templateUrl:'views/home/account/account.html'

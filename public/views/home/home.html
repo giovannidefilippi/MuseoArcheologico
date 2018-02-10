@@ -17,9 +17,9 @@
 
             </br>
 
-            <li ui-sref-active="active" ><a ui-sref="home.musei"><b>GESTIONE MUSEI</b></a></li>
+            <li ui-sref-active="active" ng-hide="mansione=='Operatore'"><a ui-sref="home.musei"><b>GESTIONE MUSEI</b></a></li>
             <li ui-sref-active="active" ><a ui-sref="home.operaDarte"><b>GESTIONE SCHEDA REPERTO OPERA D'ARTE</b></a></li>
-            <li ui-sref-active="active" ><a ui-sref="home.account"><b>GESTIONE ACCOUNT</b></a></li>
+            <li ui-sref-active="active" ng-hide="mansione=='Operatore'"><a ui-sref="home.account"><b>GESTIONE ACCOUNT</b></a></li>
             </br>
             </br>
 
