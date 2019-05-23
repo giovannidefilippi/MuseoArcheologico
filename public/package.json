@@ -12,7 +12,7 @@
         "body-parser": "1.9.2",
         "express": "4.10.1",
         "cors": "^2.3.1",
-        "mysql": "2.9.0",
+        "mysql": ">=2.14.0",
         "morgan": "1.5.0",
         "mysql-to-rest":"1.0.6"
         
