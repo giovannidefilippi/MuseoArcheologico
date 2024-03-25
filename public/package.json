@@ -10,7 +10,7 @@
     "license": "Creative Commons",
     "dependencies": {
         "body-parser": "1.9.2",
-        "express": "4.10.1",
+        "express": "4.19.2",
         "cors": "^2.3.1",
         "mysql": ">=2.14.0",
         "morgan": ">=1.9.1",
