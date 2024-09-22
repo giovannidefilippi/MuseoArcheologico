@@ -9,7 +9,7 @@
     "author": "Giovanni",
     "license": "Creative Commons",
     "dependencies": {
-        "body-parser": "1.9.2",
+        "body-parser": "1.20.3",
         "express": "4.19.2",
         "cors": "^2.3.1",
         "mysql": ">=2.14.0",
